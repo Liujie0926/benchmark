@@ -1,0 +1,18 @@
+param="model_name_or_path=Llama-2-70b-hf "
+param+="tensor_model_parallel_size=4 "
+param+="pipeline_model_parallel_size=8 "
+param+="sequence_parallel=False "
+param+="recompute=full "
+param+="activations_checkpoint_method=block "
+param+="recompute_layers=8 "
+param+="scheme=none "
+param+="bs_item=32 "
+param+="fp_item=bf16 "
+param+="run_stage=dpo "
+param+="run_mode=tp4_pp8 "
+param+="device_num=N4C32 "
+param+="model_item=llama2-70b_dpo "
+param+="export_metric=${model_name_or_path}-${run_stage}-train/effective_tokens_per_second_per_device "
+
+source prepare.sh ${model_name_or_path};
+bash -c "${param} bash run_benchmark.sh"

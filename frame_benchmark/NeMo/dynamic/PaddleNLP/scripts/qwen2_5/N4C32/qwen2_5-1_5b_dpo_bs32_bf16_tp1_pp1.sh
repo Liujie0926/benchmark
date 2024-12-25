@@ -1,0 +1,18 @@
+param="model_name_or_path=Qwen2.5-1.5B "
+param+="tensor_model_parallel_size=1 "
+param+="pipeline_model_parallel_size=1 "
+param+="sequence_parallel=False "
+param+="recompute=null "
+param+="activations_checkpoint_method=null "
+param+="recompute_layers=null "
+param+="scheme=none "
+param+="bs_item=32 "
+param+="fp_item=bf16 "
+param+="run_stage=dpo "
+param+="run_mode=tp1_pp1 "
+param+="device_num=N4C32 "
+param+="model_item=qwen2_5-1_5b_dpo "
+param+="export_metric=${model_name_or_path}-${run_stage}-train/effective_tokens_per_second_per_device "
+
+source prepare.sh ${model_name_or_path};
+bash -c "${param} bash run_benchmark.sh"
