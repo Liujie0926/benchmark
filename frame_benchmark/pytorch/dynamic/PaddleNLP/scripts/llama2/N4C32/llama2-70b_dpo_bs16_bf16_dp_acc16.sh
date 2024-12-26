@@ -1,5 +1,5 @@
-model_item=llama2-7b_dpo
-model_name_or_path=shakechen/Llama-2-7b-hf
+model_item=llama2-70b_dpo
+model_name_or_path=meta-llama/Llama-2-70b-hf
 bs_item=16
 fp_item=bf16
 run_stage=dpo

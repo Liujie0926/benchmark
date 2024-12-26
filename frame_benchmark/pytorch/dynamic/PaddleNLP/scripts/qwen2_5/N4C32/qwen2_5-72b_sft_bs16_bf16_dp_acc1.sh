@@ -1,5 +1,5 @@
-model_item=qwen2_5-7b_sft
-model_name_or_path=Qwen/Qwen2.5-7B
+model_item=qwen2_5-72b_sft
+model_name_or_path=Qwen/Qwen2.5-72B
 bs_item=16
 fp_item=bf16
 run_stage=sft
