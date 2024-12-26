@@ -9,7 +9,7 @@ finetuning_type: full
 
 ### ddp
 ddp_timeout: 180000000
-deepspeed: deepspeed/ds_z1_config.json
+deepspeed: deepspeed/ds_z2_config.json
 
 ### dataset
 dataset: hf_dpo_train
@@ -40,3 +40,4 @@ warmup_ratio: 0.1
 disable_gradient_checkpointing: false
 bf16: true
 train_from_scratch: false
+enable_liger_kernel: true

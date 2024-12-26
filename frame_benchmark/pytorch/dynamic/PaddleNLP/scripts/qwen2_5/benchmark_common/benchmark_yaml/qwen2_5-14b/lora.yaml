@@ -42,4 +42,5 @@ disable_gradient_checkpointing: true
 warmup_ratio: 0.1
 bf16: true
 
-train_from_scratch: false
+train_from_scratch: true
+enable_liger_kernel: true

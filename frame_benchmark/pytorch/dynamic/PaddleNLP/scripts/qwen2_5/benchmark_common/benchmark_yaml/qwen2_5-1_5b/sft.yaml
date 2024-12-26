@@ -41,4 +41,5 @@ warmup_ratio: 0.1
 eval_strategy: "no"
 save_strategy: "no"
 bf16: true
-train_from_scratch: false
+train_from_scratch: true
+enable_liger_kernel: true

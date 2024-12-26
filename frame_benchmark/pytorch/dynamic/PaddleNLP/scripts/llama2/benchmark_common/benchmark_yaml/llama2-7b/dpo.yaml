@@ -40,3 +40,4 @@ eval_strategy: "no"
 save_strategy: "no"
 bf16: true
 train_from_scratch: false
+enable_liger_kernel: true

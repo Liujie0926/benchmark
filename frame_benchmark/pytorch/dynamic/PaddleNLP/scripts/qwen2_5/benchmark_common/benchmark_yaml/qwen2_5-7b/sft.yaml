@@ -13,7 +13,7 @@ deepspeed: deepspeed/ds_z2_config.json
 
 ### dataset
 dataset: hf_train
-enable_liger_kernel: false
+
 template: qwen
 cutoff_len: 4096
 packing: true
@@ -42,4 +42,5 @@ num_train_epochs: 1.0
 lr_scheduler_type: cosine
 warmup_ratio: 0.1
 bf16: true
-train_from_scratch: false
+train_from_scratch: true
+enable_liger_kernel: true

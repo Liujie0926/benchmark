@@ -42,3 +42,4 @@ lr_scheduler_type: cosine
 warmup_ratio: 0.1
 bf16: true
 train_from_scratch: false
+enable_liger_kernel: true
