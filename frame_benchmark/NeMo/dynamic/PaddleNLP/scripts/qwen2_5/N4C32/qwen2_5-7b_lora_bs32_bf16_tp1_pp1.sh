@@ -14,5 +14,5 @@ param+="device_num=N4C32 "
 param+="model_item=qwen2_5-7b_lora "
 param+="export_metric=${model_name_or_path}-${run_stage}-effective_tokens_per_second_per_device "
 
-source prepare.sh ${model_name_or_path};
+bash -c "${param} source prepare.sh";
 bash -c "${param} bash run_benchmark.sh"

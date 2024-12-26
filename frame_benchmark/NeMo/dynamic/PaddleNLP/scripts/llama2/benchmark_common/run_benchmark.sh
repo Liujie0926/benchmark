@@ -77,13 +77,9 @@ function _train(){
     OUTPUT_DIR="/opt/nemo-benchmark/logs/${model_name_or_path}"
     TRAIN_DS=[/opt/nemo-benchmark/data-Llama2/sft/train/packed_4096_seed0.npy]
     VALID_DS=[/opt/nemo-benchmark/data-Llama2/sft/train/packed_4096_seed0.npy]
-    # TRAIN_DS=[/opt/nemo-benchmark/data-Qwen2/sft/train/packed_4096_seed0.npy]
-    # VALID_DS=[/opt/nemo-benchmark/data-Qwen2/sft/train/packed_4096_seed0.npy]
 
     TRAIN_DATA_PATH="/opt/nemo-benchmark/data-Llama2/nemo_dpo_train.jsonl"
     VALID_DATA_PATH="/opt/nemo-benchmark/data-Llama2/nemo_dpo_dev.jsonl"
-    # TRAIN_DATA_PATH="/opt/nemo-benchmark/data-Qwen2/nemo_dpo_train.jsonl"
-    # VALID_DATA_PATH="/opt/nemo-benchmark/data-Qwen2/nemo_dpo_dev.jsonl"
 
     PORT=36789 # 端口号
     SCHEME="none"
@@ -220,7 +216,7 @@ function _train(){
         ++model.micro_batch_size=1 \
         ++model.global_batch_size=32 \
         ++model.encoder_seq_length=4096 \
-        \"model.data.data_prefix={train: [${TRAIN_DATA_PATH}], validation: [${VALID_DATA_PATH}], test: [${VALID_DATA_PATH}]}\" \
+        'model.data.data_prefix={train: [${TRAIN_DATA_PATH}], validation: [${VALID_DATA_PATH}], test: [${VALID_DATA_PATH}]}' \
         exp_manager.create_wandb_logger=false \
         exp_manager.wandb_logger_kwargs.project=dpo_training \
         exp_manager.wandb_logger_kwargs.name=dpo_training \
@@ -240,7 +236,7 @@ function _train(){
     echo "train_cmd: ${train_cmd}  log_file: ${log_file}"
     export PYTHONPATH=/opt/apex:$PYTHONPATH
     timeout 15m ${train_cmd} > ${log_file} 2>&1
-    ips=`find mlruns/ -name ${export_metric}  -print0 | xargs -0 tail -n 1 | awk '{print $2}'`
+    ips=`find mlruns/ -path */${export_metric}  -print0 | xargs -0 tail -n 1 | awk '{print $2}'`
     echo "effective_tokens_per_sec: ${ips}" >> ${log_file}
     # 这个判断，无论是否成功都是0
     if [ $? -ne 0 ];then
