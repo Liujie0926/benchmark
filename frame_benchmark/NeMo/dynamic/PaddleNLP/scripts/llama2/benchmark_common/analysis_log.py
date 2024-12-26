@@ -106,7 +106,6 @@ class TimeAnalyzer(object):
                     line = line.strip()
                     line_words = line.split(self.separator) if self.separator else line.split()
                     if args.position:
-                        # "effective_tokens_per_sec =   825.4639"
                         result = line_words[self.position]
                     else:
                         # Distil the string following the keyword.
