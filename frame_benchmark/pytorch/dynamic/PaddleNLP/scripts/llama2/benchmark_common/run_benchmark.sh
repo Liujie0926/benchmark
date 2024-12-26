@@ -74,6 +74,13 @@ function _train(){
     *) echo "choose run_stage(sft | lora | dpo)"; exit 1;
     esac
 
+    if [ ${device_num} = "N4C32" ];then
+        PORT=36789 # 端口号
+        train_cmd="FORCE_TORCHRUN=1 NNODES=$PADDLE_TRAINERS_NUM RANK=$PADDLE_TRAINER_ID \
+            MASTER_ADDR=$POD_0_IP MASTER_PORT=$PORT \
+            ${train_cmd}"
+    fi
+
     # 以下为通用执行命令，无特殊可不用修改
     echo "Run with: device_num=${device_num}, run_mode=${run_mode}, run_stage=${run_stage}"
     echo "train_cmd: ${train_cmd}  log_file: ${log_file}"
