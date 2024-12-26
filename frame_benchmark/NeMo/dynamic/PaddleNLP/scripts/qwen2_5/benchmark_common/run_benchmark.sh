@@ -235,7 +235,52 @@ function _train(){
     echo "Run with: device_num=${device_num}, run_mode=${run_mode}, run_stage=${run_stage}"
     echo "train_cmd: ${train_cmd}  log_file: ${log_file}"
     export PYTHONPATH=/opt/apex:$PYTHONPATH
-    timeout 15m ${train_cmd} > ${log_file} 2>&1
+    if [ ${run_stage} = "dpo" ];then
+        export_metric="${model_name_or_path}-${run_stage}-train/effective_tokens_per_second_per_device"
+        timeout 15m python -m torch.distributed.launch \
+            --use-env \
+            --nproc-per-node=$PADDLE_TRAINER_COUNT \
+            --nnodes=$PADDLE_TRAINERS_NUM \
+            --node-rank=$PADDLE_TRAINER_ID \
+            --master-addr=$POD_0_IP \
+            --master-port=$PORT \
+            /opt/NeMo-Aligner/examples/nlp/gpt/train_gpt_dpo.py \
+            --config-path=/opt/nemo-benchmark/conf_dpo \
+            --config-name=${model_name_or_path}.yaml \
+            exp_manager.exp_dir=${OUTPUT_DIR} \
+            exp_manager.explicit_log_dir=${OUTPUT_DIR} \
+            ++exp_manager.log_step_performance=True \
+            ++exp_manager.create_mlflow_logger=True \
+            ++exp_manager.mlflow_logger_kwargs.experiment_name=${experiment_name} \
+            ++exp_manager.mlflow_logger_kwargs.prefix=${experiment_name} \
+            trainer.devices=$PADDLE_TRAINER_COUNT \
+            trainer.num_nodes=$PADDLE_TRAINERS_NUM \
+            ++model.tensor_model_parallel_size=${tensor_model_parallel_size} \
+            model.sequence_parallel=False \
+            ++model.pipeline_model_parallel_size=${pipeline_model_parallel_size} \
+            model.virtual_pipeline_model_parallel_size=1 \
+            model.overlap_p2p_comm=False \
+            ++model.activations_checkpoint_granularity=${recompute} \
+            ++model.activations_checkpoint_method=${activations_checkpoint_method} \
+            ++model.activations_checkpoint_num_layers=${recompute_layers} \
+            ++model.micro_batch_size=1 \
+            ++model.global_batch_size=32 \
+            ++model.encoder_seq_length=4096 \
+            "model.data.data_prefix={train: [${TRAIN_DATA_PATH}], validation: [${VALID_DATA_PATH}], test: [${VALID_DATA_PATH}]}" \
+            exp_manager.create_wandb_logger=false \
+            exp_manager.wandb_logger_kwargs.project=dpo_training \
+            exp_manager.wandb_logger_kwargs.name=dpo_training \
+            exp_manager.explicit_log_dir=${OUTPUT_DIR} \
+            ++trainer.dpo.max_epochs=1 \
+            ++trainer.dpo.max_steps=20 \
+            ++trainer.dpo.save_interval=1000 \
+            ++trainer.dpo.val_check_interval=1000 \
+            ++trainer.dpo.limit_val_batches=0.1 \
+            ++model.dpo.ref_policy_kl_penalty=0.1 > ${log_file} 2>&1
+    else
+        export_metric="${model_name_or_path}-${run_stage}-effective_tokens_per_second_per_device"
+        timeout 15m ${train_cmd} > ${log_file} 2>&1
+    fi
     ips=`find mlruns/ -path */${export_metric}  -print0 | xargs -0 tail -n 1 | awk '{print $2}'`
     echo "effective_tokens_per_sec: ${ips}" >> ${log_file}
     # 这个判断，无论是否成功都是0

@@ -12,7 +12,6 @@ param+="run_stage=dpo "
 param+="run_mode=tp1_pp1 "
 param+="device_num=N4C32 "
 param+="model_item=llama2-7b_dpo "
-param+="export_metric=${model_name_or_path}-${run_stage}-train/effective_tokens_per_second_per_device "
 
 bash -c "${param} source prepare.sh";
 bash -c "${param} bash run_benchmark.sh"
