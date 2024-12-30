@@ -18,7 +18,7 @@ python -m pip install torch==2.3.1
 python -m pip install -e .
 python -m pip install deepspeed==0.14.2
 python -m pip install modelscope
-python -m pip install liger-kernel
+python -m pip install liger-kernel==0.4.2
 
 model_name_or_path=${1:-"Qwen/Qwen2.5-1.5B"}
 mkdir -p /opt/${model_name_or_path} && cd /opt/${model_name_or_path}
