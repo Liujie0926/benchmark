@@ -74,17 +74,22 @@ function _train(){
     *) echo "choose run_stage(sft | lora | dpo)"; exit 1;
     esac
 
-    if [ ${device_num} = "N4C32" ];then
-        PORT=36789 # 端口号
-        train_cmd="FORCE_TORCHRUN=1;NNODES=$PADDLE_TRAINERS_NUM;RANK=$PADDLE_TRAINER_ID; \
-            MASTER_ADDR=$POD_0_IP;MASTER_PORT=$PORT; \
-            ${train_cmd}"
-    fi
 
     # 以下为通用执行命令，无特殊可不用修改
     echo "Run with: device_num=${device_num}, run_mode=${run_mode}, run_stage=${run_stage}"
     echo "train_cmd: ${train_cmd}  log_file: ${log_file}"
     export PATH=/opt/torch_native_venv/bin:${PATH}
+    export https_proxy=${HTTPS_PRO} 
+    export http_proxy=${HTTPS_PRO}
+    if [ ${device_num} = "N4C32" ];then
+        export MASTER_ADDR=$POD_0_IP
+        export MASTER_PORT=36878
+        export NODE_RANK=$PADDLE_TRAINER_ID
+        export NNODES=$PADDLE_TRAINERS_NUM
+        export NPROC_PER_NODE=$PADDLE_TRAINER_COUNT
+        unset OMPI_COMM_WORLD_LOCAL_RANK
+        export TOKENS_PER_STEP=131072
+    fi
     timeout 15m ${train_cmd} > ${log_file} 2>&1
     # 这个判断，无论是否成功都是0
     if [ $? -ne 0 ];then
