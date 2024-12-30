@@ -76,8 +76,16 @@ function _train(){
 
     if [ ${device_num} = "N4C32" ];then
         PORT=36789 # 端口号
-        train_cmd="FORCE_TORCHRUN=1;NNODES=$PADDLE_TRAINERS_NUM;RANK=$PADDLE_TRAINER_ID; \
-            MASTER_ADDR=$POD_0_IP;MASTER_PORT=$PORT; \
+        train_cmd="
+            export MASTER_ADDR=$POD_0_IP; \
+            export MASTER_PORT=36878; \
+            export NODE_RANK=$PADDLE_TRAINER_ID; \
+            export NNODES=$PADDLE_TRAINERS_NUM; \
+            export NPROC_PER_NODE=$PADDLE_TRAINER_COUNT; \
+            unset OMPI_COMM_WORLD_LOCAL_RANK; \
+            export TOKENS_PER_STEP=131072; \
+            export https_proxy=${HTTPS_PRO}; \
+            export http_proxy=${HTTPS_PRO}; \
             ${train_cmd}"
     fi
 
