@@ -22,6 +22,7 @@ python -m pip install liger-kernel==0.4.2
 
 model_name_or_path=${1:-"meta-llama/Llama-2-7b-hf"}
 mkdir -p /opt/${model_name_or_path} && cd /opt/${model_name_or_path}
+export no_proxy=bcebos.com
 case ${model_name_or_path} in
 shakechen/Llama-2-7b-hf)
     wget https://paddlenlp.bj.bcebos.com/models/huggingface/shakechen/Llama-2-7b-hf/LICENSE.txt

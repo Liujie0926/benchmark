@@ -22,6 +22,7 @@ python -m pip install liger-kernel==0.4.2
 
 model_name_or_path=${1:-"Qwen/Qwen2.5-1.5B"}
 mkdir -p /opt/${model_name_or_path} && cd /opt/${model_name_or_path}
+export no_proxy=bcebos.com
 case ${model_name_or_path} in
 Qwen/Qwen2.5-1.5B)  
     wget https://paddlenlp.bj.bcebos.com/models/huggingface/Qwen/Qwen2.5-1.5B/LICENSE

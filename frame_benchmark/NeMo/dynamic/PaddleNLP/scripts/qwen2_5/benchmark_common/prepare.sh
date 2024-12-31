@@ -36,6 +36,7 @@ unset http_proxy && unset https_proxy
 mkdir -p /opt/nemo-benchmark 
 cp -r benchmark_yaml/* /opt/nemo-benchmark/
 
+export no_proxy=bcebos.com
 mkdir -p /opt/nemo-benchmark/models && cd /opt/nemo-benchmark/models
 wget https://paddlenlp.bj.bcebos.com/llm_benchmark_data/NeMo_models_Qwen.tar.gz
 tar zxf NeMo_models_Qwen.tar.gz && rm -rf NeMo_models_Qwen.tar.gz
