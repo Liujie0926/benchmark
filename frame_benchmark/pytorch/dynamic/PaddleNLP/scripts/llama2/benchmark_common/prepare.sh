@@ -62,6 +62,25 @@ ydyajyA/Llama-2-13b-chat-hf)
     wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/ydyajyA/Llama-2-13b-chat-hf/up.ipynb
     echo "download models for ydyajyA/Llama-2-13b-chat-hf done" ;;
 meta-llama/Llama-2-70b-hf)
+    nums1=("00001" "00002" "00003" "00004" "00005")
+    for num in "${nums1[@]}"; do
+        url="https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-${num}-of-00015.safetensors"
+        wget "${url}" &
+    done
+    wait
+    nums2=("00006" "00007" "00008" "00009" "00010")
+    for num in "${nums2[@]}"; do
+        url="https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-${num}-of-00015.safetensors"
+        wget "${url}" &
+    done
+    wait
+    nums3=("00011" "00012" "00013" "00014" "00015")
+    for num in "${nums3[@]}"; do
+        url="https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-${num}-of-00015.safetensors"
+        wget "${url}" &
+    done
+    wait
+
     wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/LICENSE.txt
     wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/README.md
     wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/Responsible-Use-Guide.pdf
@@ -70,21 +89,21 @@ meta-llama/Llama-2-70b-hf)
     wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/configuration.json
     wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/generation_config.json
     wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/llama_updates.patch
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00001-of-00015.safetensors
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00002-of-00015.safetensors
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00003-of-00015.safetensors
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00004-of-00015.safetensors
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00005-of-00015.safetensors
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00006-of-00015.safetensors
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00007-of-00015.safetensors
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00008-of-00015.safetensors
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00009-of-00015.safetensors
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00010-of-00015.safetensors
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00011-of-00015.safetensors
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00012-of-00015.safetensors
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00013-of-00015.safetensors
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00014-of-00015.safetensors
-    wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00015-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00001-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00002-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00003-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00004-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00005-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00006-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00007-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00008-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00009-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00010-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00011-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00012-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00013-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00014-of-00015.safetensors
+    # wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model-00015-of-00015.safetensors
     wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/model.safetensors.index.json
     wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/special_tokens_map.json
     wget --no-proxy https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/Llama-2-70b-hf/tokenizer.model

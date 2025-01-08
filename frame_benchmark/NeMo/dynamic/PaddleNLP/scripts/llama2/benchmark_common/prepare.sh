@@ -47,7 +47,7 @@ wget https://paddlenlp.bj.bcebos.com/llm_benchmark_data/NeMo_data-Llama2.tar.gz
 tar zxf NeMo_data-Llama2.tar.gz && rm -rf NeMo_data-Llama2.tar.gz
 cd -
 
-mkdir -p /opt/models && cd /opt/models
-model_name_or_path=${model_name_or_path:-"Llama-2-7b-hf"}
-axel -n 20 -q -c https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/${model_name_or_path}/${model_name_or_path}.nemo
-cd -
+# mkdir -p /opt/models && cd /opt/models
+# model_name_or_path=${model_name_or_path:-"Llama-2-7b-hf"}
+# axel -n 20 -q -c https://paddlenlp.bj.bcebos.com/models/huggingface/meta-llama/${model_name_or_path}/${model_name_or_path}.nemo
+# cd -
