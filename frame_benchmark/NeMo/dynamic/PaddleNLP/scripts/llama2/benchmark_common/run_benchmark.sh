@@ -11,7 +11,6 @@ function _set_params(){
     activations_checkpoint_method=${activations_checkpoint_method:-"null"}    
     recompute_layers=${recompute_layers:-"5"}    
     scheme=${scheme:-none}   
-    export_metric=${export_metric:-"Llama-2-13b-hf-dpo-train/effective_tokens_per_second_per_device"}
     model_item=${model_item:-"qwen2_5-7b_sft"}        # (必选) 模型 item |fastscnn|segformer_b0| ocrnet_hrnetw48
     base_batch_size=${bs_item:-"1"}            # (必选) 每张卡上的batch_size
     fp_item=${fp_item:-"bf16"}                 # (必选) fp32|fp16|bf16
@@ -41,11 +40,11 @@ function _set_params(){
     profiling_log_file=${profiling_log_path}/${model_repo}_${model_name}_${device_num}_profiling
     speed_log_file=${speed_log_path}/${model_repo}_${model_name}_${device_num}_speed
     if [ ${profiling} = "true" ];then
-            add_options="profiler_options=/"batch_range=[50, 60]; profile_path=model.profile/""
-            log_file=${profiling_log_file}
-        else
-            add_options=""
-            log_file=${train_log_file}
+        add_options="profiler_options=/"batch_range=[50, 60]; profile_path=model.profile/""
+        log_file=${profiling_log_file}
+    else
+        add_options=""
+        log_file=${train_log_file}
     fi
 }
 
@@ -236,6 +235,7 @@ function _train(){
     echo "train_cmd: ${train_cmd}  log_file: ${log_file}"
     export PYTHONPATH=/opt/apex:$PYTHONPATH
     if [ ${run_stage} = "dpo" ];then
+        export_metric="${model_name_or_path}-${run_stage}-train/effective_tokens_per_second_per_device"
         timeout 15m python -m torch.distributed.launch \
             --use-env \
             --nproc-per-node=$PADDLE_TRAINER_COUNT \
@@ -277,6 +277,7 @@ function _train(){
             ++trainer.dpo.limit_val_batches=0.1 \
             ++model.dpo.ref_policy_kl_penalty=0.1 > ${log_file} 2>&1
     else
+        export_metric="${model_name_or_path}-${run_stage}-effective_tokens_per_second_per_device"
         timeout 15m ${train_cmd} > ${log_file} 2>&1
     fi
     
