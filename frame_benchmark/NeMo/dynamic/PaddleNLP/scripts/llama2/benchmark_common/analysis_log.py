@@ -296,7 +296,7 @@ class LossAnalyzer(object):
                     line_words = line.split(self.separator) if self.separator else line.split()
                     for i in range(len(line_words) - 1):
                         if line_words[i] == self.convergence_key:
-                            result_loss = line_words[i + 2] # "train_loss               =     9.1162"
+                            result_loss = line_words[i + 1]
                             result_loss = result_loss.replace(',', '')
                             raise ExceptionTest()
                 except ExceptionTest:
