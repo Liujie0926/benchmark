@@ -22,7 +22,7 @@ function _set_params(){
     speed_unit="effective_tokens/sec"                # (必选)速度指标单位
     skip_steps=0                        # (必选)解析日志，跳过模型前几个性能不稳定的step
     keyword="effective_tokens_per_second_per_device:"                       # (必选)解析日志，筛选出性能数据所在行的关键字
-    convergence_key="total_tokens_per_second_per_device:"                   # (可选)解析日志，筛选出收敛数据所在行的关键字 如：convergence_key="loss:"
+    convergence_key="total_tokens:"                   # (可选)解析日志，筛选出收敛数据所在行的关键字 如：convergence_key="loss:"
     is_large_model=True
     position=${position:-"2"}                  # (可选) 解析日志，筛选出收敛数据所在行的关键字 如：convergence_key="loss:"
 
@@ -286,7 +286,7 @@ function _train(){
     effective_tokens_per_second_per_device=`find mlruns/ -path */${export_metric_effective}  -print0 | xargs -0 tail -n 1 | awk '{print $2}'`
     echo "effective_tokens_per_second_per_device: ${effective_tokens_per_second_per_device}" >> ${log_file}
     total_tokens_per_second_per_device=`find mlruns/ -path */${export_metric_total}  -print0 | xargs -0 tail -n 1 | awk '{print $2}'`
-    echo "total_tokens_per_second_per_device: ${total_tokens_per_second_per_device}" >> ${log_file}
+    echo "total_tokens: ${total_tokens_per_second_per_device}" >> ${log_file}
     # 这个判断，无论是否成功都是0
     if [ $? -ne 0 ];then
         echo -e "${model_name}, FAIL"
